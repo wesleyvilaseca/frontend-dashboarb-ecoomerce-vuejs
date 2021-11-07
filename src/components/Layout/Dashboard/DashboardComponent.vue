@@ -8,7 +8,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-12">
-            <slot />
+            <slot name="page-content" />
           </div>
         </div>
       </div>
