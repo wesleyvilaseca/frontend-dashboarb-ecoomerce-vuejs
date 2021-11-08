@@ -39,3 +39,7 @@ button {
     top: var(--topNavbarHeight);
   }
 }
+
+a.router-link-active {
+  color: cyan !important;
+}

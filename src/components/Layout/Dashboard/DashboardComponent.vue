@@ -2,7 +2,7 @@
   <body>
       <TopBarComponent />
     <!-- offcanvas -->
-    <SideBarComponent />
+    <SideBarComponent :layout="teste" />
     <!-- offcanvas -->
     <main class="mt-5 pt-3">
       <div class="container-fluid">
@@ -21,6 +21,14 @@ import TopBarComponent from './TopBarComponent.vue'
 import SideBarComponent from './SideBarComponent.vue'
 
 export default {
+  props: {
+    layout: Boolean
+  },
+  data () {
+    return {
+      teste: this.layout
+    }
+  },
   components: {
     TopBarComponent,
     SideBarComponent

@@ -1,5 +1,5 @@
 <template>
-  <div class="card mb-3">
+  <div class="card mb-3***">
     <div class="card-header"><h4>{{type}}</h4></div>
     <div class="card-body">
       <p class="card-text mt-4 d-flex justify-content-between">
@@ -17,6 +17,6 @@ export default {
       type: String,
       qtd: String,
       icon: String
-  }
+  },
 };
 </script>

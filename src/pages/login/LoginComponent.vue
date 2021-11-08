@@ -4,7 +4,7 @@
       <div class="content">
         <h3>Login</h3>
         <hr />
-        <form>
+        <form @submit.stop.prevent="login">
           <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input
@@ -12,6 +12,8 @@
               class="form-control"
               id="exampleInputEmail1"
               placeholder="Email"
+              v-model="email"
+              required
             />
           </div>
           <div class="form-group">
@@ -21,9 +23,11 @@
               class="form-control"
               id="exampleInputPassword1"
               placeholder="Password"
+              v-model="password"
+              required
             />
           </div>
-          <button type="submit" class="btn btn-primary" @click.prevent="login">Login</button>
+          <button type="submit" class="btn btn-primary">Login</button>
           <hr />
           <button type="button" class="btn btn-link">Signup</button>
           <button type="button" class="btn btn-link">Reset Password</button>
@@ -67,18 +71,31 @@ div.content {
 </style>
 
 <script>
+import axios from "axios";
 export default {
-    name: 'LoginComponent',
-    
-    data() {
-        return {
+  name: "LoginComponent",
 
-        }
+  data() {
+    return {
+      email: "",
+      password: "",
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        const response = await axios.post("login", {
+          email: this.email,
+          password: this.password,
+        });
+        localStorage.setItem("token", response.data.access_token);
+        this.$router.push({ name: "admin-home" });
+      } catch (error) {
+        this.$toast.error(`dados incorretos`, {
+          position: "top",
+        });
+      }
     },
-    methods: {
-        login(){
-            this.$router.push({name: 'admin-home'});
-        }
-    }
+  },
 };
 </script>
