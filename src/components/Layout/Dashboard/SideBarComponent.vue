@@ -49,7 +49,7 @@
                     class="nav-link px-3"
                   >
                     <span class="me-2"><i class="bi bi-speedometer2"></i></span>
-                    <span>Dashboard</span>
+                    <span>Categorias</span>
                   </router-link>
                 </li>
               </ul>
