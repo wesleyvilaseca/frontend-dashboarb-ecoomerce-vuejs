@@ -38,7 +38,6 @@
 </template>
 
 <script>
-
   export default {
     name: "PaginateTable",
     data() {
@@ -56,6 +55,12 @@
       getCategories(data){
         this.callMethod(data);
       }
+    },
+    created() {
+
+    },
+    updated() {
+      
     }
   }
 </script>
