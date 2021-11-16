@@ -1,9 +1,11 @@
 import axios from "axios";
 import router from '../router/router';
 
-axios.defaults.baseURL = process.env.VUE_APP_ROOT_APIURL;
+const http = axios;
 
-axios.interceptors.request.use(
+http.defaults.baseURL = process.env.VUE_APP_ROOT_APIURL;
+
+http.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('token');
 
@@ -19,7 +21,7 @@ axios.interceptors.request.use(
     }
 );
 
-axios.interceptors.response.use(
+http.interceptors.response.use(
     async response => {
         if (response.status === 200 || response.status === 201) {
             return Promise.resolve(response);
@@ -28,6 +30,10 @@ axios.interceptors.response.use(
         }
     },
     async error => {
+        if (!error.response) {
+            return alert('Erro!, tente mais tarde');
+        }
+
         const originalRequest = error.config;
         if (error.response.status) {
             switch (error.response.status) {
@@ -39,11 +45,11 @@ axios.interceptors.response.use(
                 case 401:
                     // alert("session expired");
                     try {
-                        const response = await axios.post("refresh-token");
+                        const response = await http.post("refresh-token");
                         localStorage.setItem("token", response.data.access_token);
-                        return axios(originalRequest);
+                        return http(originalRequest);
                     } catch (error) {
-                        console.log(error);
+                        // console.log(error);
                     }
 
                     break;
@@ -77,3 +83,5 @@ axios.interceptors.response.use(
         }
     }
 );
+
+export default http;

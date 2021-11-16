@@ -3,12 +3,15 @@ import App from './App.vue';
 import router from './config/router/router';
 import "@/assets/css/all.css";
 import Toaster from "@meforma/vue-toaster";
-import "./config/axios/axiosConfig";
-import axios from "axios";
+import http from "./config/axios/axiosConfig";
+import cripto from './config/cripto/cripto';
 
 const app = createApp(App);
 
-app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$http = http;
+app.config.globalProperties.$loading = false;
+app.config.globalProperties.$cripto = cripto;
+
 
 app.use(Toaster);
 app.use(router);

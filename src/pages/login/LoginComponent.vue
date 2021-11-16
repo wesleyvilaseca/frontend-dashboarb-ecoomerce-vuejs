@@ -5,8 +5,8 @@
         <h3>Login</h3>
         <hr />
         <form @submit.stop.prevent="login">
-          <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
+          <div class="form-group mb-2">
+            <label for="exampleInputEmail1">Email</label>
             <input
               type="email"
               class="form-control"
@@ -16,21 +16,30 @@
               required
             />
           </div>
-          <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
+          <div class="form-group mb-2">
+            <label for="exampleInputPassword1">Senha</label>
             <input
               type="password"
               class="form-control"
               id="exampleInputPassword1"
-              placeholder="Password"
+              placeholder="Senha"
               v-model="password"
               required
             />
           </div>
-          <button type="submit" class="btn btn-primary">Login</button>
+          <div class="d-grid">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              v-bind:class="{ disabled: loading }"
+              v-html="loginButtonText"
+            ></button>
+          </div>
           <hr />
-          <button type="button" class="btn btn-link">Signup</button>
-          <button type="button" class="btn btn-link">Reset Password</button>
+          <!-- <button type="button" class="btn btn-link">Signup</button> -->
+          <div align="right">
+            <button type="button" class="btn btn-link">Reset Password</button>
+          </div>
         </form>
       </div>
     </div>
@@ -71,31 +80,6 @@ div.content {
 </style>
 
 <script>
-import axios from "axios";
-export default {
-  name: "LoginComponent",
-
-  data() {
-    return {
-      email: "",
-      password: "",
-    };
-  },
-  methods: {
-    async login() {
-      try {
-        const response = await axios.post("login", {
-          email: this.email,
-          password: this.password,
-        });
-        localStorage.setItem("token", response.data.access_token);
-        this.$router.push({ name: "admin-home" });
-      } catch (error) {
-        this.$toast.error(`dados incorretos`, {
-          position: "top",
-        });
-      }
-    },
-  },
-};
+import Login from "./Login";
+export default Login;
 </script>

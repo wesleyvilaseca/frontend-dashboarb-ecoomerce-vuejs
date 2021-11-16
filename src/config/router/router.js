@@ -24,6 +24,12 @@ const routes = [
     beforeEnter: Guard.auth
   },
   {
+    path: "/admin-product",
+    name: "admin-product",
+    // component: CategoryComponent,
+    beforeEnter: Guard.auth
+  },
+  {
     path: "/:catchAll(.*)",
     component: NotFoundComponent,
   },

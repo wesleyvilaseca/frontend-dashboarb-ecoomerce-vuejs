@@ -14,7 +14,7 @@
       <a
         class="navbar-brand me-auto ms-lg-0 ms-3 text-uppercase fw-bold"
         href="#"
-        >Frontendfunn</a
+        >Administração</a
       >
       <button
         class="navbar-toggler"
@@ -28,6 +28,25 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="topNavBar">
+        <!-- <form class="d-flex ms-auto my-3 my-lg-0">
+          <div class="input-group">
+            <button class="btn btn-outline-warning" type="submit">
+              Logout
+            </button>
+          </div>
+        </form> -->
+        <ul class="navbar-nav d-flex ms-auto my-3 my-lg-0 me-5">
+          <li class="nav-item dropdown">
+            <a class="nav-link">
+              {{ name }}
+            </a>
+          </li>
+        </ul>
+        <form @submit.stop.prevent="logout">
+          <button class="btn btn-outline-warning btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </form>
+      </div>
+      <!-- <div class="collapse navbar-collapse" id="topNavBar">
         <form class="d-flex ms-auto my-3 my-lg-0">
           <div class="input-group">
             <input
@@ -61,7 +80,8 @@
             </ul>
           </li>
         </ul>
-      </div>
+
+      </div> -->
     </div>
   </nav>
   <!-- top navigation bar -->
@@ -70,5 +90,32 @@
 <script>
 export default {
   name: "TopBarComponent",
+  data() {
+    return {
+      name: "",
+    };
+  },
+  methods: {
+    logout() {
+      this.$http
+        .post("logout")
+        .then(() => {
+          localStorage.removeItem("token");
+          localStorage.removeItem("_usx");
+          this.$router.push({ name: "login" });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+  },
+  mounted() {
+    let userdata = JSON.parse(this.$cripto.Decrypt(localStorage.getItem('_usx')));
+    let firstname = userdata.name.split(' ')[0];
+    this.name = firstname;
+    },
+  created() {
+    // console.log('created');
+  }
 };
-</script>**
+</script>

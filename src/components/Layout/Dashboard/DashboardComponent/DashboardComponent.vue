@@ -1,8 +1,8 @@
 <template>
   <body>
-      <TopBarComponent />
+    <TopBarComponent />
     <!-- offcanvas -->
-    <SideBarComponent :layout="teste" />
+    <SideBarComponent :catalog="catalog" :layout="layout" />
     <!-- offcanvas -->
     <main class="mt-5 pt-3">
       <div class="container-fluid">
@@ -17,21 +17,20 @@
 </template>
 
 <script>
-import TopBarComponent from './TopBarComponent.vue'
-import SideBarComponent from './SideBarComponent.vue'
+import TopBarComponent from "../TopBarComponent/TopBarComponent.vue";
+import SideBarComponent from "../SidebarComponent/SideBarComponent.vue";
 
 export default {
   props: {
+    catalog: Boolean,
     layout: Boolean
   },
-  data () {
-    return {
-      teste: this.layout
-    }
+  data() {
+    return {};
   },
   components: {
     TopBarComponent,
-    SideBarComponent
+    SideBarComponent,
   },
   name: "DashBoardComponent",
 };

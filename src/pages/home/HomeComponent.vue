@@ -23,7 +23,7 @@
 </template>
 
 <script>
-import DashBoardComponent from "../../components/Layout/Dashboard/DashboardComponent.vue";
+import DashBoardComponent from "../../components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
 import CardComponent1 from "../../components/Cards/CardComponent1.vue";
 
 export default {
