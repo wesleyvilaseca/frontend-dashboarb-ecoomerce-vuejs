@@ -29,6 +29,14 @@ export default {
                     });
             }
         },
+
+        clearStorage() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('_usx');
+        }
+    },
+    mounted() {
+        this.clearStorage();
     },
     watch: {
         loading() {

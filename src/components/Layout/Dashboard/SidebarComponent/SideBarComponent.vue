@@ -50,14 +50,20 @@ export default {
   },
   props: {
     layout: Boolean,
-    catalog: Boolean,
     config: Boolean,
   },
   data() {
-    return {};
+    return {
+      catalog: false
+    };
   },
-  created() {
-    console.log(this.catalog);
+  methods: {
+    getEnvent(){
+       window.addEventListener('catalog', () => { this.catalog = true; })
+    }
+  },
+  mounted() {
+    this.getEnvent();
   },
 };
 </script>

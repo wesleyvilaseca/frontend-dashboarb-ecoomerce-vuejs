@@ -23,7 +23,7 @@ import SideBarComponent from "../SidebarComponent/SideBarComponent.vue";
 export default {
   props: {
     catalog: Boolean,
-    layout: Boolean
+    layout: Boolean,
   },
   data() {
     return {};

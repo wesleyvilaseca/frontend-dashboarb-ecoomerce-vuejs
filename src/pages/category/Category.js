@@ -53,8 +53,13 @@ export default {
     delet(id) {
       console.log(id);
     },
+    sendEvent() {
+      const event = new CustomEvent('catalog');
+      window.dispatchEvent(event);
+    }
   },
   async mounted() {
     await this.getCategories();
+    this.sendEvent();
   },
 };
