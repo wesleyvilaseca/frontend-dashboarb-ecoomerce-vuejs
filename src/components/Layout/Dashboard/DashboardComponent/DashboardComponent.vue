@@ -2,7 +2,7 @@
   <body>
     <TopBarComponent />
     <!-- offcanvas -->
-    <SideBarComponent :catalog="catalog" :layout="layout" />
+    <SideBarComponent />
     <!-- offcanvas -->
     <main class="mt-5 pt-3">
       <div class="container-fluid">
@@ -21,10 +21,7 @@ import TopBarComponent from "../TopBarComponent/TopBarComponent.vue";
 import SideBarComponent from "../SidebarComponent/SideBarComponent.vue";
 
 export default {
-  props: {
-    catalog: Boolean,
-    layout: Boolean,
-  },
+  props: {},
   data() {
     return {};
   },

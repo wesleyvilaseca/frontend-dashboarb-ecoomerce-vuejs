@@ -6,7 +6,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr v-for="(obj, index) in categories" :key="index">
+      <tr v-for="(obj, index) in data" :key="index">
         <td>{{obj.name}}</td>
         <td v-if="isEdit || isDelet">
             <template v-if="isEdit">

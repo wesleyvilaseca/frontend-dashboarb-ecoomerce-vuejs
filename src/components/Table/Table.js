@@ -1,7 +1,7 @@
 export default {
     name: "TableComponent",
     props: {
-        categories: Object, 
+        data: Object, 
         config: Object,
         isEdit: Boolean,
         isDelet: Boolean,

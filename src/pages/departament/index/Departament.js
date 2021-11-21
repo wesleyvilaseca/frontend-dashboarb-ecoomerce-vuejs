@@ -1,6 +1,6 @@
-import DashBoardComponent from "../../components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
-import TableComponent from "../../components/Table/TableComponent.vue";
-import PaginateTable from "../../components/PaginateTable/PaginateTable.vue";
+import DashBoardComponent from "@/components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
+import TableComponent from "@/components/Table/TableComponent.vue";
+import PaginateTable from "@/components/PaginateTable/PaginateTable.vue";
 import axios from "axios";
 
 export default {
@@ -22,20 +22,20 @@ export default {
           title: "#",
         },
       ],
-      categories: "",
+      departaments: "",
       last_page: "",
       current_page: "",
       links: "",
     };
   },
   methods: {
-    async getCategories(page = 1) {
+    async getDepartaments(page = 1) {
       this.loading = true;
       try {
-        const { data } = await axios.get("admin-category/all?page=" + page);
+        const { data } = await axios.get("admin-departament/all?page=" + page);
 
         this.loading = false;
-        this.categories = data.data;
+        this.departaments = data.data;
         this.last_page = data.last_page;
         this.current_page = data.current_page;
         this.links = data.links;
@@ -46,7 +46,9 @@ export default {
         this.$toast.error(`error`, { position: "top" });
       }
     },
-
+    newdepartament(){
+      return this.$router.push({ name: "admin-create-departament" });
+    },
     edit(id) {
       console.log(id);
     },
@@ -59,7 +61,7 @@ export default {
     }
   },
   async mounted() {
-    await this.getCategories();
+    await this.getDepartaments();
     this.sendEvent();
   },
 };

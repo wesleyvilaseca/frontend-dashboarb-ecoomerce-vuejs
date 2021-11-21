@@ -22,7 +22,7 @@
     >
       <ul class="navbar-nav ps-3">
         <li>
-          <router-link :to="{ name: 'admin-category' }" class="nav-link px-3">
+          <router-link :to="{ name: 'admin-departament' }" class="nav-link px-3">
             <span class="me-2"><i class="fas fa-angle-double-right"></i></span>
             <span>Departamentos</span>
           </router-link>
@@ -40,8 +40,21 @@
 <script>
 export default {
   name: "CatalogMenuComponent",
-  props: {
-    catalog: Boolean,
+  props: {},
+  data() {
+    return {
+      catalog: false,
+    };
+  },
+  methods: {
+    getEnvent() {
+      window.addEventListener("catalog", () => {
+        this.catalog = true;
+      });
+    },
+  },
+  mounted() {
+    this.getEnvent();
   },
 };
 </script>

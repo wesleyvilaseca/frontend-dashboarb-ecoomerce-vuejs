@@ -1,9 +1,10 @@
 import { createWebHistory, createRouter } from "vue-router";
-import LoginComponent from "../../pages/login/LoginComponent";
-import HomeComponent from "../../pages/home/HomeComponent";
-import NotFoundComponent from "../../pages/notfound/NotFoundComponent";
-import CategoryComponent from "../../pages/category/CategoryComponent";
-import Guard from "../../services/middleware/middleware";
+import LoginComponent from "@/pages/login/LoginComponent";
+import HomeComponent from "@/pages/home/HomeComponent";
+import NotFoundComponent from "@/pages/notfound/NotFoundComponent";
+import DepartamentComponent from "@/pages/departament/index/DepartamentComponent";
+import CreateDepartamentComponent from "@/pages/departament/create/CreateDepartamentComponent";
+import Guard from "@/services/middleware/middleware";
 
 const routes = [
   {
@@ -18,9 +19,15 @@ const routes = [
     beforeEnter: Guard.auth
   },
   {
-    path: "/admin-category",
-    name: "admin-category",
-    component: CategoryComponent,
+    path: "/admin-departament",
+    name: "admin-departament",
+    component: DepartamentComponent,
+    beforeEnter: Guard.auth
+  },
+  {
+    path: "/admin-departament/create",
+    name: "admin-create-departament",
+    component: CreateDepartamentComponent,
     beforeEnter: Guard.auth
   },
   {

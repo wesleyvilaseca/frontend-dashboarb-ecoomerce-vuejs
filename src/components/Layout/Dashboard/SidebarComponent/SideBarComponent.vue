@@ -19,10 +19,10 @@
               <span>Painel de controle</span>
             </router-link>
           </li>
-          <CatalogMenuComponent :catalog="catalog" />
-          <LayoutMenuComponent :layout="layout" />
+          <CatalogMenuComponent />
+          <LayoutMenuComponent />
           <li class="my-4"><hr class="dropdown-divider bg-light" /></li>
-          <ConfigMenuComponent :config="config" />
+          <ConfigMenuComponent />
         </ul>
       </nav>
     </div>
@@ -48,22 +48,14 @@ export default {
     LayoutMenuComponent,
     ConfigMenuComponent
   },
-  props: {
-    layout: Boolean,
-    config: Boolean,
-  },
+  props: {},
   data() {
-    return {
-      catalog: false
-    };
+    return {};
   },
   methods: {
-    getEnvent(){
-       window.addEventListener('catalog', () => { this.catalog = true; })
-    }
   },
   mounted() {
-    this.getEnvent();
+    
   },
 };
 </script>

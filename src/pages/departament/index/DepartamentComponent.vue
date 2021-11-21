@@ -3,11 +3,11 @@
     <template v-slot:page-content>
       <div class="contatiner d-flex justify-content-between">
         <h4>Categorias</h4>
-        <button class="btn btn-sm btn-primary">Adicionar</button>
+        <button class="btn btn-sm btn-primary" @click="newdepartament">Adicionar</button>
       </div>
       <TableComponent
-        v-if="categories"
-        :categories="categories"
+        v-if="departaments"
+        :data="departaments"
         :config="config"
         :isEdit="true"
         :isDelet="true"
@@ -18,7 +18,7 @@
         :currentpage="current_page"
         :lastpage="last_page"
         :links="links"
-        :callMethod="getCategories"
+        :callMethod="getDepartaments"
       />
     </template>
   </DashBoardComponent>
@@ -28,6 +28,6 @@
 </style>
 
 <script>
-  import Category from "./Category.js";
+  import Category from "./Departament.js";
   export default Category;
 </script>
