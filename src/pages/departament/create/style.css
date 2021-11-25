@@ -2,6 +2,7 @@
     background: #fff;
     border: 1px solid black;
     width: 100%;
+    z-index: 999;
   }
   
   .drop-list ul {
@@ -13,7 +14,7 @@
     margin-left: 10px;
   }
   
-  .drop-list ul:hover {
+  .drop-list ul li:hover {
     color: #fff;
     background: #0b5ed7;
   }
