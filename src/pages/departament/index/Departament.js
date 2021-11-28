@@ -18,14 +18,14 @@ export default {
           title: "Nome",
         },
         {
-          key: "#",
-          title: "#",
-        },
+          key: "seo",
+          title: "SEO",
+        }
       ],
       departaments: "",
       last_page: "",
       current_page: "",
-      links: "",
+      links: ""
     };
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
         this.$toast.error(`error`, { position: "top" });
       }
     },
-    newdepartament(){
+    newdepartament() {
       return this.$router.push({ name: "admin-create-departament" });
     },
 
@@ -54,8 +54,26 @@ export default {
       return this.$router.push('/admin-departament/edit/' + obj.id);
     },
 
-    delet(id) {
-      console.log(id);
+    async delet(obj) {
+
+      if (confirm(`Tem certeza que deseja remover o departamento ${obj.name}?`)) {
+        try {
+          const { data } = await axios.post("admin-departament/delete", {
+            id: obj.id
+          });
+          this.$toast.success(`${data.msg}`, { position: "top" });
+
+          /**
+           * if on del the current page is the first, only request the departaments
+           * if on del has departamens in the obj this.departament, get departaments sending de actual current page
+           * if on del the obj this.departamens is empty, get departaments sending the actual page - 1
+           */
+          this.getDepartaments(this.current_page == 1 ? this.getDepartaments() : this.departaments.length > 0 ? this.getDepartaments(this.current_page) : this.getDepartaments(this.current_page - 1));
+
+        } catch (error) {
+          this.$toast.error(`error`, { position: "top" });
+        }
+      }
     },
 
     sendEvent() {
