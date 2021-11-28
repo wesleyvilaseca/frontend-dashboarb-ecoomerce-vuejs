@@ -1,5 +1,5 @@
 <template>
-  <DashBoardComponent :catalog="true">
+  <DashBoardComponent>
     <template v-slot:page-content>
       <div class="contatiner d-flex justify-content-between">
         <h4>Categorias</h4>

@@ -4,6 +4,11 @@ import HomeComponent from "@/pages/home/HomeComponent";
 import NotFoundComponent from "@/pages/notfound/NotFoundComponent";
 import DepartamentComponent from "@/pages/departament/index/DepartamentComponent";
 import CreateDepartamentComponent from "@/pages/departament/create/CreateDepartamentComponent";
+
+import ProductComponent from "@/pages/product/index/ProductComponent";
+import CreateProductComponent from "@/pages/product/create/CreateProductComponent";
+
+
 import Guard from "@/services/middleware/middleware";
 
 const routes = [
@@ -39,7 +44,13 @@ const routes = [
   {
     path: "/admin-product",
     name: "admin-product",
-    // component: CategoryComponent,
+    component: ProductComponent,
+    beforeEnter: Guard.auth
+  },
+  {
+    path: "/admin-product-create",
+    name: "admin-product-create",
+    component: CreateProductComponent,
     beforeEnter: Guard.auth
   },
   {
