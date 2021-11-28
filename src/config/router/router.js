@@ -31,6 +31,12 @@ const routes = [
     beforeEnter: Guard.auth
   },
   {
+    path: "/admin-departament/edit/:id",
+    name: "admin-create-edit",
+    component: CreateDepartamentComponent,
+    beforeEnter: Guard.auth
+  },
+  {
     path: "/admin-product",
     name: "admin-product",
     // component: CategoryComponent,

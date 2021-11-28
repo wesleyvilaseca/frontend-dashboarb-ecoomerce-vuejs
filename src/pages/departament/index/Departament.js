@@ -1,6 +1,6 @@
 import DashBoardComponent from "@/components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
-import TableComponent from "@/components/Table/TableComponent.vue";
-import PaginateTable from "@/components/PaginateTable/PaginateTable.vue";
+import TableComponent from "@/components/Widgets/TableComponent/TableComponent.vue";
+import PaginateTable from "@/components/Widgets/PaginateTableComponent/PaginateTable.vue";
 import axios from "axios";
 
 export default {
@@ -49,12 +49,15 @@ export default {
     newdepartament(){
       return this.$router.push({ name: "admin-create-departament" });
     },
-    edit(id) {
-      console.log(id);
+
+    edit(obj) {
+      return this.$router.push('/admin-departament/edit/' + obj.id);
     },
+
     delet(id) {
       console.log(id);
     },
+
     sendEvent() {
       const event = new CustomEvent('catalog');
       window.dispatchEvent(event);

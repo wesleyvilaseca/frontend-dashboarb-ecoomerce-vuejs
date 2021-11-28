@@ -1,6 +1,6 @@
 <template>
   <DashBoardComponent>
-    <template v-slot:page-content>
+    <template v-slot:page-content class="">
       <div class="contatiner d-flex justify-content-between">
         <h4>Departamento</h4>
         <router-link
@@ -13,66 +13,36 @@
 
       <div class="container-fluid">
         <form @submit.stop.prevent="save">
-          <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Nome do departamento</label
-            >
-            <input type="text" class="form-control" v-model="name" />
-          </div>
+          <InputComponent
+            :label="'Nome do departamento'"
+            :type="'text'"
+            v-model="name"
+          />
           <div
             class="mb-3 position-relative"
             v-if="departaments_selected.length <= 0"
           >
-            <label for="exampleInputPassword1" class="form-label"
-              >Departamento pai</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              v-model="search"
-              autocomplete="off"
-              @keyup="searchDepartament"
+            <InputSearchComponent
+              :type="'text'"
+              :label="'Departamento pai'"
+              :searchMethod="searchDepartament"
             />
 
-            <div
-              v-if="departaments.length > 0"
-              class="position-absolute drop-list"
-            >
-              <div class="list">
-                <ul>
-                  <li
-                    class="d-block"
-                    v-for="(departament, index) in departaments"
-                    :key="index"
-                    @click="selectDepartament(departament)"
-                  >
-                    {{ departament.name }}
-                  </li>
-                </ul>
-              </div>
+            <div v-if="departaments.length > 0">
+              <SearchDropdownListComponent
+                :obj="departaments"
+                :itenKey="'name'"
+                :selectMethod="selectDepartament"
+              />
             </div>
           </div>
 
           <div v-if="departaments_selected.length > 0">
-            <div class="card mt-2 mb-2">
-              <div class="card-header">Departamento selecionado</div>
-              <div class="card-body">
-                <ul class="list-group list-group-flush">
-                  <li
-                    class="list-group-item"
-                    v-for="(departament, index) in departaments_selected"
-                    :key="index"
-                  >
-                    {{ departament.name }}
-                    <span
-                      class="ms-5 fs-5 text-danger"
-                      @click="unselectDepartament(index)"
-                      ><i class="fas fa-times"></i
-                    ></span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <CardListComponent
+              :list="departaments_selected"
+              :itenKey="'name'"
+              :unselect="true"
+            />
           </div>
 
           <button type="submit" class="btn btn-primary">Salvar</button>
@@ -85,26 +55,37 @@
 <script>
 import "./style.css";
 import DashBoardComponent from "@/components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
+import CardListComponent from "@/components/Widgets/CardListComponent/CardListComponent.vue";
+import SearchDropdownListComponent from "@/components/Widgets/SearchDropdownListComponent/SearchDropdownListComponent.vue";
+import InputSearchComponent from "@/components/Inputs/InputSearchComponent/InputSearchComponent.vue";
+import InputComponent from "@/components/Inputs/Common/InputComponent.vue";
+
 export default {
   name: "CreateDepartamentComponent",
-  components: { DashBoardComponent },
+  components: {
+    DashBoardComponent,
+    CardListComponent,
+    SearchDropdownListComponent,
+    InputSearchComponent,
+    InputComponent,
+  },
   data() {
     return {
+      id: "",
       name: "",
-      search: "",
       departaments: [],
       departaments_selected: [],
     };
   },
   methods: {
-    async searchDepartament() {
-      if (this.search == "") {
+    async searchDepartament(search) {
+      if (search == "") {
         return (this.departaments = []);
       }
 
       try {
         const { data } = await this.$http.get(
-          "admin-departament/search?name=" + this.search
+          "admin-departament/search?name=" + search
         );
         return (this.departaments = data);
       } catch (error) {
@@ -118,30 +99,52 @@ export default {
       this.departaments_selected.push(departament);
     },
 
-    unselectDepartament(index) {
-      this.departaments_selected.splice(index, 1);
-      // const filter = this.departaments_selected.filter(element => element !== departament);
-      // this.departaments_selected = filter;
-    },
-
     async save() {
+      const endpoint = this.id
+        ? "admin-departament/update"
+        : "admin-departament/save";
+
       try {
-        const { data } = await this.$http.post("admin-departament/save", {
+        const { data } = await this.$http.post(endpoint, {
+          id: this.id,
           name: this.name,
-          parent_id: this.departaments_selected
+          parent_id: this.departaments_selected,
         });
 
-        this.$toast.success(`${data.msg}`, {  position: "top" });
+        this.$toast.success(`${data.msg}`, { position: "top" });
 
-        this.$router.push({name: 'admin-departament'});
-        
+        this.$router.push({ name: "admin-departament" });
       } catch (error) {
         const { data } = error;
-        this.$toast.error(`${data.error}`, {  position: "top" });
+        this.$toast.error(`${data.error}`, { position: "top" });
+      }
+    },
+
+    async getDepartament() {
+      try {
+        const { data } = await this.$http.post("admin-departament/get", {
+          id: this.id,
+        });
+
+        this.name = data.name;
+        if (data.parent) {
+          this.departaments_selected.push(data.parent);
+        }
+      } catch (error) {
+        const { data } = error;
+        this.$toast.error(`${data.error}`, { position: "top" });
       }
     },
   },
+  created() {
+    console.log();
+  },
   mounted() {
+    if (this.$route.params.id) {
+      this.id = this.$route.params.id;
+      this.getDepartament();
+    }
+
     const event = new CustomEvent("catalog");
     window.dispatchEvent(event);
   },

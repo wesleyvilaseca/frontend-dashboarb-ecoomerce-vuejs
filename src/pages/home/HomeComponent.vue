@@ -24,7 +24,7 @@
 
 <script>
 import DashBoardComponent from "../../components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
-import CardComponent1 from "../../components/Cards/CardComponent1.vue";
+import CardComponent1 from "../../components/Widgets/Cards/CardComponent1.vue";
 
 export default {
   components: {
