@@ -12,16 +12,22 @@
       </div>
       <TabsComponent :tablist="tablist">
         <template v-slot:geral>
-          <h1>Geral</h1>
-
-          <QuillEditor
-            theme="snow"
-            toobal="full"
-            v-model:content="content"
-            contentType="html"
-            @keyup="contentt"
-          />
-
+          <div class="mt-2">
+            <form>
+              <InputComponent
+                :label="'Nome do produto'"
+                :type="'text'"
+                v-model="name"
+              />
+              <QuillEditor
+                theme="snow"
+                toobal="full"
+                v-model:content="content"
+                contentType="html"
+                @keyup="contentt"
+              />
+            </form>
+          </div>
         </template>
         <template v-slot:dados> Dados teste</template>
         <template v-slot:ligacoes> Ligações teste</template>
@@ -31,14 +37,22 @@
 </template>
 
 <script>
+import './Style.css';
 import DashBoardComponent from "@/components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
 import TabsComponent from "@/components/Widgets/TabsComponent/TabsComponent.vue";
+import InputComponent from "@/components/Inputs/Common/InputComponent.vue";
+
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
 export default {
   name: "CreateProductComponent",
-  components: { DashBoardComponent, TabsComponent, QuillEditor },
+  components: {
+    DashBoardComponent,
+    TabsComponent,
+    QuillEditor,
+    InputComponent,
+  },
   data() {
     return {
       content: "",
