@@ -6,7 +6,6 @@ import Toaster from "@meforma/vue-toaster";
 import http from "./config/axios/axiosConfig";
 import cripto from './config/cripto/cripto';
 
-
 const app = createApp(App);
 
 app.config.globalProperties.$http = http;

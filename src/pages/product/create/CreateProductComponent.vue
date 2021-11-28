@@ -10,10 +10,21 @@
           <i class="fas fa-arrow-left"></i> Voltar
         </router-link>
       </div>
-      <TabsComponent :tablist="tablist"> 
-          <template v-slot:geral> Geral teste</template>
-          <template v-slot:dados> Dados teste</template>
-          <template v-slot:ligacoes> Ligações teste</template>
+      <TabsComponent :tablist="tablist">
+        <template v-slot:geral>
+          <h1>Geral</h1>
+
+          <QuillEditor
+            theme="snow"
+            toobal="full"
+            v-model:content="content"
+            contentType="html"
+            @keyup="contentt"
+          />
+
+        </template>
+        <template v-slot:dados> Dados teste</template>
+        <template v-slot:ligacoes> Ligações teste</template>
       </TabsComponent>
     </template>
   </DashBoardComponent>
@@ -22,12 +33,15 @@
 <script>
 import DashBoardComponent from "@/components/Layout/Dashboard/DashboardComponent/DashboardComponent.vue";
 import TabsComponent from "@/components/Widgets/TabsComponent/TabsComponent.vue";
+import { QuillEditor } from "@vueup/vue-quill";
+import "@vueup/vue-quill/dist/vue-quill.snow.css";
 
 export default {
   name: "CreateProductComponent",
-  components: { DashBoardComponent, TabsComponent },
+  components: { DashBoardComponent, TabsComponent, QuillEditor },
   data() {
     return {
+      content: "",
       tablist: [
         {
           title: "Geral",
@@ -51,6 +65,10 @@ export default {
     sendEvent() {
       const event = new CustomEvent("catalog");
       window.dispatchEvent(event);
+    },
+
+    contentt() {
+      console.log(this.content);
     },
   },
   mounted() {
