@@ -4,7 +4,9 @@
     <input
       :type="type"
       class="form-control"
+      :placeholder="placeholder"
       v-bind:class="extraclass"
+      :required="required"
       :value="modelValue"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -19,6 +21,8 @@ export default {
     label: String,
     modelValue: String,
     extraclass: String,
+    placeholder: String,
+    required: String
   },
 };
 </script>
